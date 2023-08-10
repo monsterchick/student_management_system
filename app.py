@@ -52,7 +52,6 @@ def delete():
     if request.method == 'GET':
         # parameter from html
         name_to_delete = request.args.get('name')
-
         for stu in students:
             if stu['name'] == name_to_delete:
                 students.remove(stu)
@@ -69,7 +68,6 @@ def change():
     course_to_changed = request.form.get('course')
     mobile_to_changed = request.form.get('mobile')
     age_to_changed = request.form.get('age')
-
     # the name of the student whose information is been being modifying
     name = request.args.get('name')
 
@@ -91,6 +89,11 @@ def change():
             # delivers original student's information and shows on input box
             return render_template('modify.html', student=stu)
 
+@app.route('/search', methods=['GET','POST'])
+def search():
+    search = request.form.get('search')
+    print(search)
+    return render_template('search.html')
 
 if __name__ == '__main__':
     app.run()
