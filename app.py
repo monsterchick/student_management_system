@@ -15,5 +15,8 @@ def login():
 def signup():
     return render_template('signup.html')
 
+@app.route('/manage_panel')
+def panel():
+    return render_template('manage_panel.html')
 if __name__ == '__main__':
     app.run()

@@ -30,6 +30,9 @@
 
         .form {
             background-color: #3F5D7D;
+            width: 320px;
+            height: 320px;
+            position: relative;
         }
 
         .rounded-element {
@@ -40,12 +43,30 @@
             text-align: center;
         }
 
+        .text-underline {
+            display: flex;
+            align-items: center;
+            margin: 0 5px;
+        }
+
+        .text-underline-contianer {
+            display: flex;
+            justify-content: space-between;
+        }
+
     </style>
 </head>
 <body>
 <div class="container login-form ">
     <form class="form p-5 border" style="width: 320px; height: 430px">
-        <button type="button" class="btn-close" aria-label="Close"></button>
+
+        <div class="col close">
+            <div class="col close">
+                <button type="button" class="btn-close" aria-label="Close"
+                        style="position: absolute; top: 10px; right: 10px;"></button>
+            </div>
+        </div>
+
         <div class="mb-4">
             <h2 class="title mb-4">Sign Up</h2>
         </div>
@@ -55,9 +76,9 @@
             <input type="password" class="form-control mb-3 rounded-element center-placeholder" id="inpPass1"
                    name="password" placeholder="Password">
             <input type="password" class="form-control mb-3 rounded-element center-placeholder" id="inpPass2"
-           name="password" placeholder="Verify Password">
+                   name="password" placeholder="Verify Password">
             <input type="Email" class="form-control mb-3 rounded-element center-placeholder" id="email"
-           name="email" placeholder="Email">
+                   name="email" placeholder="Email">
 
         </div>
         <div class="btn-center">
