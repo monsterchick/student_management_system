@@ -1,8 +1,10 @@
 from flask import Flask, render_template, redirect, request
+from database_operator import Operator
+
+
+operator = Operator()
 
 app = Flask(__name__)
-
-
 @app.route('/')
 def Welcome():  # put application's code here
     return 'Welcome to Student Management System!'
@@ -21,9 +23,11 @@ def signup():
         email = request.form.get('email')
         # print(username, email, password, verification)
         if (password == verification) & (len(username) <= 20):
-            print('=====')
+            operator.add(inp_usr=username, inp_psw=password, inp_email=email)
+
         else:
-            print('nnnnnnn')
+            print('something wrong! try again.')
+            return redirect('/signup')
         return redirect('/login')
 
     if request.method=='GET':
