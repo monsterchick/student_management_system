@@ -11,8 +11,18 @@ def Welcome():  # put application's code here
 def login():
     return render_template('login.html')
 
-@app.route('/signup')
+@app.route('/signup',methods=['GET','POST'])
 def signup():
+    if request.method=='POST':
+        # information for registering account
+        username = request.form.get('username')
+        password = request.form.get('password')
+        verification = request.form.get('inpVerification')
+        email = request.form.get('email')
+        # print(username,email, password, verification)
+
+        return redirect('/login')
+
     return render_template('signup.html')
 
 @app.route('/manage_panel')
