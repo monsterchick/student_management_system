@@ -17,11 +17,18 @@ def signup():
         # information for registering account
         username = request.form.get('username')
         password = request.form.get('password')
-        verification = request.form.get('inpVerification')
+        verification = request.form.get('verification')
         email = request.form.get('email')
-        # print(username,email, password, verification)
-
+        # print(username, email, password, verification)
+        if (password == verification) & (len(username) <= 20):
+            print('=====')
+        else:
+            print('nnnnnnn')
         return redirect('/login')
+
+    if request.method=='GET':
+        print('getttt')
+
 
     return render_template('signup.html')
 
