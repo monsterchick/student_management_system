@@ -44,3 +44,7 @@ INSERT INTO tbl_manager(
     'ASDF@gmail.com'
 );
 
+ALTER TABLE tbl_manager MODIFY COLUMN mUsername VARCHAR(12);    # change VARCHAR(20) to VARCHAR(12)
+
+SELECT * FROM tbl_manager WHERE mId=10;     # search row which's mId=10
+SELECT * FROM tbl_manager WHERE mUsername='asdf' AND mPassword=222;     # search row which's mUsername='asdf' and mPassword=222

@@ -2,20 +2,30 @@ from flask import Flask, render_template, redirect, request
 from database_operator import Operator
 
 
-operator = Operator()
+
 
 app = Flask(__name__)
 @app.route('/')
 def Welcome():  # put application's code here
     return 'Welcome to Student Management System!'
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    operator = Operator()
+    if request.method=='POST':
+        # information for registering account
+        username = request.form.get('username')
+        password = request.form.get('password')
+        # print(username, password)
+        operator.search(inp_usr=username, inp_psw=password)
+
     return render_template('login.html')
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
+    operator = Operator()
     if request.method=='POST':
+        # while True:
         # information for registering account
         username = request.form.get('username')
         password = request.form.get('password')
@@ -24,15 +34,9 @@ def signup():
         # print(username, email, password, verification)
         if (password == verification) & (len(username) <= 20):
             operator.add(inp_usr=username, inp_psw=password, inp_email=email)
-
+            return redirect('/login')
         else:
             print('something wrong! try again.')
-            return redirect('/signup')
-        return redirect('/login')
-
-    if request.method=='GET':
-        print('getttt')
-
 
     return render_template('signup.html')
 
