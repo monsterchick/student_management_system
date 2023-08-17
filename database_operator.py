@@ -28,15 +28,15 @@ class Operator:
 
     def add(self, inp_usr, inp_psw, inp_email):
         # add new data
-        # self.cursor.execute('INSERT INTO tbl_manager(mUsername, mPassword, mMail) values({},{},{});'.format(inp_usr, inp_psw, inp_email))
-        # self.cursor.execute('INSERT INTO tbl_manager("mUsername", "mPassword", "mEmail") values("{}", "{}", "{}");'.format(inp_usr, inp_psw, inp_email))
         self.cursor.execute("INSERT INTO tbl_manager(mUsername, mPassword, mEmail) values('{}', '{}', '{}');".format(inp_usr, inp_psw, inp_email))
-        print(inp_usr, inp_psw, inp_email)
+        # print(inp_usr, inp_psw, inp_email)
+
         # confirm to execute sql code
         self.connect.commit()
 
         # close database connection
         self.connect.close()
+        self.cursor.close()
     def remove(self, mId):
         # connect to database server
         try:
@@ -87,7 +87,7 @@ class Operator:
         except mysql.connector.errors.ProgrammingError as err:
             # if the connection is wrong, prompt the issue
             print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
-    def search(self, mId):
+    def search(self, inp_usr, inp_psw):
         # connect to database server
         try:
             connect = mysql.connector.connect(
@@ -102,13 +102,15 @@ class Operator:
 
             # create Cursor object to operate database
             cursor = connect.cursor()
-            cursor.execute('INSERT INTO product(id, username, password, email) values(11, "dog", 33);')
-
+            cursor.execute("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
+            # print("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
             # confirm to execute sql code
             connect.commit()
 
             # close database connection
+            cursor.close()
             connect.close()
+
         except mysql.connector.errors.ProgrammingError as err:
             # if the connection is wrong, prompt the issue
             print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
