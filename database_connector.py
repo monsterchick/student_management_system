@@ -13,6 +13,7 @@ try:
         password=os.getenv('DB_PASSWORD'),
         database=os.getenv('DB_NAME')
     )
+    # if the connection is successful, prompt it
     if connect.is_connected() == True:
         print('database connected successfully!')
 
@@ -26,6 +27,7 @@ try:
     # close database connection
     connect.close()
 except mysql.connector.errors.ProgrammingError as err:
+        # if the connection is wrong, prompt the issue
         print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
 
 
