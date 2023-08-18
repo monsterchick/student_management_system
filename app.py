@@ -3,11 +3,10 @@ from database_operator import Operator
 
 
 
-
 app = Flask(__name__)
 @app.route('/')
 def Welcome():  # put application's code here
-    return 'Welcome to Student Management System!'
+    return render_template('welcome.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -17,7 +16,11 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         # print(username, password)
-        operator.search(inp_usr=username, inp_psw=password)
+        info_check = operator.login_verification(inp_usr=username, inp_psw=password)
+        if info_check == True:
+            return redirect('/home')
+        else:
+            print('fail to log in . Please check your username or password.')
 
     return render_template('login.html')
 
@@ -32,7 +35,8 @@ def signup():
         verification = request.form.get('verification')
         email = request.form.get('email')
         # print(username, email, password, verification)
-        if (password == verification) & (len(username) <= 20):
+
+        if password == verification:
             operator.add(inp_usr=username, inp_psw=password, inp_email=email)
             return redirect('/login')
         else:
@@ -40,8 +44,13 @@ def signup():
 
     return render_template('signup.html')
 
-@app.route('/manage_panel')
-def panel():
+@app.route('/home')
+def home():
     return render_template('manage_panel.html')
+
+@app.route('/forgot')
+def forgot():
+    return render_template('forgot.html')
+
 if __name__ == '__main__':
     app.run()

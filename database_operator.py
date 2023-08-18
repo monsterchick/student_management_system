@@ -87,33 +87,28 @@ class Operator:
         except mysql.connector.errors.ProgrammingError as err:
             # if the connection is wrong, prompt the issue
             print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
-    def search(self, inp_usr, inp_psw):
-        # connect to database server
+    def search(self):
+        pass
+    def login_verification(self, inp_usr, inp_psw):
         try:
-            connect = mysql.connector.connect(
-                host=os.getenv('DB_HOST'),
-                user=os.getenv('DB_USERNAME'),
-                password=os.getenv('DB_PASSWORD'),
-                database=os.getenv('DB_NAME')
-            )
-            # if the connection is successful, prompt it
-            if connect.is_connected() == True:
-                print('database connected successfully!')
+            self.cursor.execute("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
 
-            # create Cursor object to operate database
-            cursor = connect.cursor()
-            cursor.execute("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
-            # print("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
+            # data from database
+            # row = self.cursor.fetchone()
+            # db_username = row[1]
+            # db_password = row[2]
+            # print('from db:', db_username, db_password)
+
             # confirm to execute sql code
-            connect.commit()
+            self.connect.commit()
 
             # close database connection
-            cursor.close()
-            connect.close()
+            self.cursor.close()
+            self.connect.close()
+            return True
 
-        except mysql.connector.errors.ProgrammingError as err:
-            # if the connection is wrong, prompt the issue
-            print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
+        except:
+            print('fail to log in since. Couldn\' find username and password not match to database.')
 
 def test():
     operator = Operator()
