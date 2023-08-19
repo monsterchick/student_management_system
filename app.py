@@ -15,12 +15,17 @@ def login():
         # information for registering account
         username = request.form.get('username')
         password = request.form.get('password')
-        # print(username, password)
+        print(username, password)
         info_check = operator.login_verification(inp_usr=username, inp_psw=password)
+        print(info_check)
         if info_check == True:
             return redirect('/home')
         else:
-            print('fail to log in . Please check your username or password.')
+            print('fail to log in. Please check your username or password.')
+            prompt = 'Fail to log in. Try again!'
+            return render_template('login.html', prompt=prompt)
+
+
 
     return render_template('login.html')
 

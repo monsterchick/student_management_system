@@ -53,15 +53,24 @@
             display: flex;
             justify-content: space-between;
         }
+        .prompt {
+            text-align: center;
+            font-size: smaller;
+            color: #FF0000;
+        }
 
     </style>
 </head>
 <body>
 <div class="container login-form ">
     <div class="row">
-
         <div class="col">
             <form class="form p-5 border" method="post">
+                <div class="col prompt" style="position: absolute; top: 10px; left: 90px;">
+                    <label>
+                        {{ prompt }}
+                    </label>
+                </div>
 
                 <div class="col close">
                     <a href="/">

@@ -90,14 +90,29 @@ class Operator:
     def search(self):
         pass
     def login_verification(self, inp_usr, inp_psw):
+
+        # user's input matches in database
         try:
             self.cursor.execute("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
 
             # data from database
-            # row = self.cursor.fetchone()
-            # db_username = row[1]
-            # db_password = row[2]
-            # print('from db:', db_username, db_password)
+            data = self.cursor.fetchone()      # (7, 'asdf', '222', 'kwanho.app@gmail.com')
+            # print(self.cursor.fetchone())
+
+            db_username = data[1]
+            db_password = data[2]
+            print('from db:', db_username, db_password)
+            print('from user:', inp_usr, inp_psw)
+
+            if db_username == inp_usr and db_password == inp_psw:
+                # print('yyy')
+                status = True
+            else:
+                # print('nnn')
+                status = False
+
+            print(status)
+            return status
 
             # confirm to execute sql code
             self.connect.commit()
@@ -105,10 +120,10 @@ class Operator:
             # close database connection
             self.cursor.close()
             self.connect.close()
-            return True
 
+        # if user's input does not match in database
         except:
-            print('fail to log in since. Couldn\' find username and password not match to database.')
+            print('fail to log in since. Couldn\'t find username and password not match to database.')
 
 def test():
     operator = Operator()
