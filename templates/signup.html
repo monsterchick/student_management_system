@@ -33,6 +33,7 @@
             width: 320px;
             height: 320px;
             position: relative;
+            box-shadow: 10px 10px 10px #00000050;
         }
 
         .rounded-element {
@@ -60,9 +61,12 @@
             <h2 class="title mb-4">Sign Up</h2>
         </div>
         <div class="mb-3">
+
             <input type="text" class="form-control mb-3 rounded-element center-placeholder" id="inpUsername"
                    name="username"
-                   placeholder="Username" maxlength="12">
+                   placeholder="Username"
+                   maxlength="12"
+                   pattern="[A-Za-z0-9]+" required>
             <input type="password" class="form-control mb-3 rounded-element center-placeholder" id="inpPassword"
                    name="password" placeholder="Password" maxlength="20">
             <input type="password" class="form-control mb-3 rounded-element center-placeholder" id="inpVerification"

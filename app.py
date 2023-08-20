@@ -19,7 +19,7 @@ def login():
         info_check = operator.login_verification(inp_usr=username, inp_psw=password)
         print(info_check)
         if info_check == True:
-            return redirect('/home')
+            return redirect('/home?user={}'.format(username))
         else:
             print('fail to log in. Please check your username or password.')
             prompt = 'Fail to log in. Try again!'
@@ -41,17 +41,21 @@ def signup():
         email = request.form.get('email')
         # print(username, email, password, verification)
 
+        # sign up successfully
         if password == verification:
             operator.add(inp_usr=username, inp_psw=password, inp_email=email)
             return redirect('/login')
         else:
+            # sign up fail
             print('something wrong! try again.')
 
     return render_template('signup.html')
 
 @app.route('/home')
 def home():
-    return render_template('manage_panel.html')
+    user = request.args.get('user')
+    print(user)
+    return render_template('manage_panel.html', user=user)
 
 @app.route('/forgot')
 def forgot():
