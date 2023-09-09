@@ -1,6 +1,7 @@
 import os
 import dotenv
 import mysql.connector
+import math
 
 # load the private data for login to mysql server
 dotenv.load_dotenv()
@@ -26,8 +27,11 @@ class Operator:
             # if the connection is wrong, prompt the issue
             print('failed to connect since wrong with: \n{}. \nPlease check you infomation correct.'.format(err))
 
-    def add(self, inp_usr, inp_psw, inp_email):
-        # add new data
+    def sign_up(self, inp_usr, inp_psw, inp_email):
+        '''
+        This gets the input of manager from registration form
+        then add the information into tbl_manager
+        '''
         self.cursor.execute("INSERT INTO tbl_manager(mUsername, mPassword, mEmail) values('{}', '{}', '{}');".format(inp_usr, inp_psw, inp_email))
         # print(inp_usr, inp_psw, inp_email)
 
@@ -90,7 +94,12 @@ class Operator:
     def search(self):
         pass
     def login_verification(self, inp_usr, inp_psw):
-
+        '''
+        This verifies the input entered by the user and the data in the database.
+        :param inp_usr: user's input of username
+        :param inp_psw: user's input of password
+        :return: None
+        '''
         # user's input matches in database
         try:
             self.cursor.execute("SELECT * FROM tbl_manager WHERE mUsername='{}' AND mPassword={};".format(inp_usr, inp_psw))
